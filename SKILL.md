@@ -37,6 +37,7 @@ description: 고품질의 세련된 SVG 애니메이션 및 데이터 흐름 인
 - **여백(Margin) 활용**: 박스와 화살표 시작점 사이에 최소 2~5px의 여백을 두어 시각적으로 분리된 느낌을 줍니다.
 - **도형 내부 여백 (Inner Padding)**: 도형(`rect`, `circle` 등) 내부에 아이콘과 텍스트를 배치할 때는 내용이 도형 경계에 밀착되지 않도록 `width`, `height` 또는 `translate` 속성을 충분히 할당하여 깔끔한 패딩(Padding) 여백을 유지해야 합니다.
 - **좌표 동기화 (Coordinate Snapping)**: `<g transform="translate(...)">`와 같은 그룹 내 로컬 좌표계(Local Coordinates)를 사용할 때 전역 좌표계(Global Coordinates)와의 변환 오차를 명확하게 계산해야 합니다. 특히 `<animateMotion>` 등 글로벌 레벨에서 동작하는 궤적과 실제 로컬 도형/연결선이 완벽히 일치하도록 좌표계를 철저히 동기화하세요.
+- **안전한 트랜스폼 애니메이션 (Transform Animation Safety)**: `<animateTransform>`을 사용할 때 기본 `transform` 속성(`translate(x, y)` 등)이 덮어씌워지거나 `additive="sum"`으로 인해 좌표가 이중으로 더해지는(Doubling) 치명적 시각적 오류를 방지해야 합니다. 애니메이션을 적용할 때는 **정적 위치를 잡는 부모 `<g>`**와 **애니메이션이 재생되는 자식 `<g>`(초기값 0, 0)**를 분리하는 **중첩된 그룹(Nested Groups) 구조**를 엄격히 사용하세요.
 
 ### 4. 애니메이션 및 시각적 밀도
 - **일관된 흐름**: 시스템 전체의 데이터 흐름에는 동일한 애니메이션 패턴(예: Glowing Packet)을 적용하여 시각적 통일성을 유지합니다.
